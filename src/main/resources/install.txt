@@ -1,0 +1,18 @@
+git安装前检查
+yum list|grep  curl
+yum list|grep  expat-devel
+yum list|grep  gettext-devel
+yum list|grep  openssl-devel
+yum list|grep  zlib-devel
+
+git 手动安装
+tar -zxf git-2.9.5.tar.gz
+cd git-2.9.5
+make prefix=/usr/local all
+make prefix=/usr/local install
+
+备注：安装报错 openssl/ssl.h: No such file or directory
+yum install openssl-devel
+yum install curl-devel
+yum install expat-devel gettext-devel zlib-devel
+yum install perl-ExtUtils-MakeMaker
