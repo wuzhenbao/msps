@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<title>测试SpringBoot项目</title>
+</head>
+<body>
+	<p>测试用户信息：</p>
+	<form action="">
+		用户姓名： <input type="text" maxlength="50" height="20" id="userName">
+		<br> <input type="button" value="添加用户" id="add_user_button">
+		<br>
+		查询用户信息： 
+		 <input type="text" maxlength="50" height="20" id="searchUserName">
+		<br> <input type="button" value="查询用户" id="search_user_button">
+	</form>
+	
+</body>
+<script type="text/javascript">
+	$(function() {
+		$("#add_user_button").bind("click", function() {
+			addUser();
+		});
+		$("#search_user_button").bind("click", function() {
+			searchUser();
+		});
+	});
+	function searchUser(){
+		var userName = $("#searchUserName").val();
+		$.ajax({
+			url : 'user/queryUser/'+userName,
+			dataType : 'json',
+			type : "GET",
+			success : function(data) {
+				var userList = data.userList;
+			},
+			error : function(errMsg) {
+				alert("出错了：" + errMsg);
+			}
+		});
+	}
+	function addUser() {
+		var userName = $("#userName").val();
+		$.ajax({
+			url : 'user/addUser',
+			dataType : 'json',
+			type : "POST",
+			data : {
+				userName : userName
+			},
+			success : function(data) {
+				
+				alert(data.code+","+data.message);
+			},
+			error : function(errMsg) {
+				alert("出错了：" + errMsg);
+			}
+		});
+	}
+</script>
+</html>
